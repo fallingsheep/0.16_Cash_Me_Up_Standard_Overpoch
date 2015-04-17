@@ -336,6 +336,9 @@ dayz_resetSelfActions = {
     s_player_fillbarrel = -1;
 	s_player_clothesmenu = -1;
 	s_player_clothesmenu2 = -1;
+	s_givemoney_dialog = -1;
+	s_bank_dialog = -1;
+	s_bank_dialog2 = -1;
 
 };
 call dayz_resetSelfActions;
@@ -1187,3 +1190,6 @@ _CraftingArray = _Amethyst + _Citrine + _Emerald + _Lights + _Obsidian + _Ruby +
 dayz_allowedObjects = dayz_allowedObjects + _CraftingArray;
 DZE_maintainClasses = DZE_maintainClasses + _CraftingArray;
 Custom_Buildables = _CraftingArray; 
+
+
+SmeltingGoldBarsToCoinsRate = 1000; // How many gold coins are in a gold bar

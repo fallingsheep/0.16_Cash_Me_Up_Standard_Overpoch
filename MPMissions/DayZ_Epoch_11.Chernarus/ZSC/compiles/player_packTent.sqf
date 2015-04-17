@@ -1,7 +1,7 @@
 /*
 [_obj] spawn player_packTent;
 */
-private ["_activatingPlayer","_objectID","_objectUID","_obj","_ownerID","_dir","_pos","_object","_holder","_weapons","_magazines","_backpacks","_objWpnTypes","_objWpnQty","_countr","_alreadyPacking","_dis","_sfx","_classname","_location","_playerUID"];
+private ["_activatingPlayer","_objectID","_objectUID","_obj","_ownerID","_dir","_pos","_object","_holder","_weapons","_magazines","_backpacks","_objWpnTypes","_objWpnQty","_countr","_alreadyPacking","_dis","_sfx","_classname","_location","_objMoney"];
 
 if(DZE_ActionInProgress) exitWith { cutText [(localize "str_epoch_player_13") , "PLAIN DOWN"]; };
 DZE_ActionInProgress = true;
@@ -12,24 +12,21 @@ s_player_packtent = 1;
 _activatingPlayer = player;
 
 _obj = _this;
-_ownerID = _obj getVariable["ownerPUID","0"];
+_ownerID = _obj getVariable["CharacterID","0"];
 _objectID 	= _obj getVariable["ObjectID","0"];
 _objectUID	= _obj getVariable["ObjectUID","0"];
 _objMoney	= _obj getVariable["bankMoney",0];
-_playerUID = getPlayerUID player;
-
 [1,1] call dayz_HungerThirst;
 player playActionNow "Medic";
 
 if(_objectID == "0" && _objectUID == "0") exitWith {DZE_ActionInProgress = false; s_player_packtent = -1; cutText [(localize "str_epoch_player_14"), "PLAIN DOWN"];};
 
-if(_ownerID != _playerUID) exitWith {DZE_ActionInProgress = false; s_player_packtent = -1; cutText [localize "str_fail_tent_pack", "PLAIN DOWN"];};
-if (_objMoney > 0) exitWith {DZE_ActionInProgress = false; s_player_packtent = -1; cutText ["There is still money in the tent. Packing cancelled." , "PLAIN DOWN"]};
+if(_ownerID != dayz_characterID) exitWith {DZE_ActionInProgress = false; s_player_packtent = -1; cutText [localize "str_fail_tent_pack", "PLAIN DOWN"];};
 
 _alreadyPacking = _obj getVariable["packing",0];
 
 if (_alreadyPacking == 1) exitWith {DZE_ActionInProgress = false; s_player_packtent = -1; cutText [format[(localize "str_player_beingpacked")] , "PLAIN DOWN"]};
-
+if (_objMoney > 0) exitWith {DZE_ActionInProgress = false; s_player_packtent = -1; cutText ["There is still money in the tent. Packing cancelled." , "PLAIN DOWN"]};
 _obj setVariable["packing",1];
 
 _dir = direction _obj;

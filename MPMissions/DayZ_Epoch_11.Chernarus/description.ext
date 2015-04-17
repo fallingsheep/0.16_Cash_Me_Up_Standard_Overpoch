@@ -1,3 +1,6 @@
+//Currency
+#include "ZSC\config\cfgServerTrader.hpp"
+
 //Journal
 class RscIGUIShortcutButton;
 #include "scripts\journal\CfgPlayerStats\defines.hpp"
@@ -774,6 +777,8 @@ class RscPictureGUI
 #include "scripts\dzgm\defines.hpp"
 class RscTitles
 {
+//Currency
+#include "ZSC\config\ZSChud.hpp"
 //DZGM
 #include "scripts\dzgm\icons.hpp"
 titles[] = {"DeathScr","wm_disp"};
@@ -1597,3 +1602,7 @@ class CfgSounds
 
 //Skin Trader
 #include "scripts\zupa\skins\SkinGui.hpp"
+
+//Currency
+#include "ZSC\config\ZSCdefines.hpp"
+#include "ZSC\config\ZSCdialogs.hpp"

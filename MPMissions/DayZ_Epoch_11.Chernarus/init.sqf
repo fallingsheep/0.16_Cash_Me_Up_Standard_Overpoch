@@ -127,13 +127,14 @@ call compile preprocessFileLineNumbers "fixes\publicEH.sqf";				//Initilize the 
 progressLoadingScreen 0.3;
 call compile preprocessFileLineNumbers "\z\addons\dayz_code\medical\setup_functions_med.sqf";	//Functions used by CLIENT for medical
 progressLoadingScreen 0.4;
+call compile preprocessFileLineNumbers "ZSC\gold\ZSCinit.sqf";
 call compile preprocessFileLineNumbers "\z\addons\dayz_code\init\compiles.sqf";				//Compile regular functions
 progressLoadingScreen 0.5;
 call compile preprocessFileLineNumbers "fixes\compiles.sqf";
 progressLoadingScreen 0.6;
 call compile preprocessFileLineNumbers "scripts\Buildables\Crafting_Compiles.sqf";
 progressLoadingScreen 0.7;
-call compile preprocessFileLineNumbers "server_traders.sqf";				//Compile trader configs
+call compile preprocessFileLineNumbers "server_traders_cherno_11.sqf";				//Compile trader configs
 progressLoadingScreen 0.8;
 call compile preprocessFileLineNumbers "logistic\init.sqf";
 progressLoadingScreen 0.9;
@@ -148,7 +149,7 @@ if (isServer) then {
 	
 	// Add trader citys
 	_nil = [] execVM "\z\addons\dayz_server\missions\DayZ_Epoch_11.Chernarus\mission.sqf";
-	_serverMonitor = 	[] execVM "\z\addons\dayz_code\system\server_monitor.sqf";
+	_serverMonitor = 	[] execVM "\z\addons\dayz_server\system\server_monitor.sqf";;
 };
 
 endLoadingScreen; // Work around for loadscreen freeze
@@ -166,7 +167,7 @@ if (!isDedicated) then {
 		_id = player addEventHandler ["Respawn", {_id = [] spawn player_death;}];
 	};
 	_playerMonitor = 	[] execVM "\z\addons\dayz_code\system\player_monitor.sqf";	
-	
+	execVM "ZSC\compiles\playerHud.sqf";
 
 	
 	if ( !((getPlayerUID player) in AdminList) && !((getPlayerUID player) in ModList)) then {
