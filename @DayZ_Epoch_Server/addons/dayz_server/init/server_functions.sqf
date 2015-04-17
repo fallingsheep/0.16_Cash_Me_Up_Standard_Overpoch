@@ -38,6 +38,7 @@ server_sendToClient =			compile preprocessFileLineNumbers "\z\addons\dayz_server
 //onPlayerConnected 			{[_uid,_name] call server_onPlayerConnect;};
 onPlayerDisconnected 		{[_uid,_name] call server_onPlayerDisconnect;};
 
+
 server_updateNearbyObjects = {
 	private["_pos"];
 	_pos = _this select 0;
@@ -996,7 +997,7 @@ server_checkHackers = {
 	{
 	if (!((isNil "_x") || {(isNull _x)})) then {
 	// Epoch Admin Tools
-    if(vehicle _x != _x && !(vehicle _x in PVDZE_serverObjectMonitor) && (isPlayer _x)  && !((typeOf vehicle _x) in DZE_safeVehicle) && (vehicle _x getVariable ["MalSar",0] !=1)) then {
+	if(vehicle _x != _x && !(vehicle _x in PVDZE_serverObjectMonitor) && (isPlayer _x) && !((typeOf vehicle _x) in DZE_safeVehicle) && (vehicle _x getVariable ["Mission",0] != 1) &&(vehicle _x getVariable ["MalSar",0] != 1) && (vehicle _x getVariable ["Sarge",0] != 1)) then {
 			diag_log ("CLEANUP: KILLING A HACKER " + (name _x) + " " + str(_x) + " IN " + (typeOf vehicle _x));
 			(vehicle _x) setDamage 1;
 			_x setDamage 1;
