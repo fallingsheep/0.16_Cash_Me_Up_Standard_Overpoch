@@ -149,7 +149,7 @@ if (isServer) then {
 	
 	// Add trader citys
 	_nil = [] execVM "\z\addons\dayz_server\missions\DayZ_Epoch_11.Chernarus\mission.sqf";
-	_serverMonitor = 	[] execVM "\z\addons\dayz_server\system\server_monitor.sqf";;
+	_serverMonitor = 	[] execVM "\z\addons\dayz_server\system\server_monitor.sqf";
 };
 
 endLoadingScreen; // Work around for loadscreen freeze
