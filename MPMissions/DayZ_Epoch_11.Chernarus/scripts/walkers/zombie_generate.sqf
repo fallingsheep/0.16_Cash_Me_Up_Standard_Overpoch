@@ -153,5 +153,6 @@ if ((dayz_spawnZombies < _maxControlledZombies) && (dayz_CurrentNearByZombies < 
 
 		//Start behavior
 		_id = [_position,_agent] execFSM "scripts\walkers\zombie_agent.fsm";
+		_agent addRating -1000000;
 	};
 };
