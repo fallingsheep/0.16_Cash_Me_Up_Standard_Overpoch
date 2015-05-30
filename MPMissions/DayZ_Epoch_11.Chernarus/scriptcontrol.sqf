@@ -3,7 +3,7 @@
 
 //Server watermark
 WaterMarkScript = true; //Watermark on/off
-server_name = "0.15"; //Watermark Text
+server_name = "0.16"; //Watermark Text
 //Gambling ( Slotmachine, Guessing Game)
 GambleingScript = true;
 //No Voice Inside chat
@@ -228,4 +228,4 @@ sectorfngMarker = false;
 // DO NOT CHANGE THIS!!
 //Repack version 
 REPACKMOD = "Overpoch"; 
-BUILDNUMBER = "133";
+BUILDNUMBER = "134";
