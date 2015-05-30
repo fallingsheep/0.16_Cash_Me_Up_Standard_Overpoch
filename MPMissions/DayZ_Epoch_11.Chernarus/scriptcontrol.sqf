@@ -229,5 +229,4 @@ sectorfngMarker = false;
 
 // DO NOT CHANGE THIS!!
 //Repack version 
-REPACKMOD = "Overpoch"; 
-BUILDNUMBER = "134";
+REPACKMOD = "0.16 - Standard Overpoch"; 
