@@ -121,12 +121,14 @@ if (!isDedicated) then {
 	//zombie_findTargetAgent = 	compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\zombie_findTargetAgent.sqf";
 	zombie_loiter = 			compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\zombie_loiter.sqf";			//Server compile, used for loiter behaviour
 	
-	//Recruit Survivors
-	zombie_generate = compile preprocessFileLineNumbers "fixes\zombie_generate.sqf";
-	//zombie_generate = 			compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\zombie_generate.sqf";			//Server compile, used for loiter behaviour
-	
-	wild_spawnZombies = 		compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\wild_spawnZombies.sqf";			//Server compile, used for loiter behaviour
-
+	if(walkerZombieScript)then{
+		zombie_generate = compile preprocessFileLineNumbers "scripts\walkers\zombie_generate.sqf";
+		wild_spawnZombies = 		compile preprocessFileLineNumbers "scripts\walkers\wild_spawnZombies.sqf";			//Server compile, used for loiter behaviour
+	}else{
+		//Recruit Survivors
+		zombie_generate = compile preprocessFileLineNumbers "fixes\zombie_generate.sqf";
+		wild_spawnZombies = 		compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\wild_spawnZombies.sqf";			//Server compile, used for loiter behaviour
+	};
 	pz_attack = 				compile preprocessFileLineNumbers "\z\addons\dayz_code\actions\pzombie\pz_attack.sqf";
 
 	dog_findTargetAgent = 		compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\dog_findTargetAgent.sqf";

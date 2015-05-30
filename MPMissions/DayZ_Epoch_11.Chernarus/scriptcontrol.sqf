@@ -4,6 +4,8 @@
 //Server watermark
 WaterMarkScript = true; //Watermark on/off
 server_name = "0.16"; //Watermark Text
+//Slow zombies
+walkerZombieScript = true;
 //Gambling ( Slotmachine, Guessing Game)
 GambleingScript = true;
 //No Voice Inside chat
