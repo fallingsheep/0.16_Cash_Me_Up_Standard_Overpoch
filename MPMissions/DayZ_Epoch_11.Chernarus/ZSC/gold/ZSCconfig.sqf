@@ -13,7 +13,7 @@ ZSC_MaxMoneyInStorageMultiplier = 100000;
 InstantTrading = true; 
 
 // If TRUE: overwrite yours player_switchmodel.sqf with mine. | IF False: Change content yourself @ step D
-ZSC_Overwrite_SwitchModel = true; 
+ZSC_Overwrite_SwitchModel = false; 
 
  // if TRUE: Overwrites yours fn_selfactions.sqf with default 1 + edits. | IF False: Change content yourself @ step D
 ZSC_Overwrite_SelfActions = false;
