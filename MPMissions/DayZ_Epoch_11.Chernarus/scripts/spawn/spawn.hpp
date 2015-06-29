@@ -1,296 +1,394 @@
-class E_Spawn_Dialog
+class SpawnDialog
 {
-	idd = -1;
-	movingenable = true;
-	enableSimulation = true;
+	idd = 88890;
+	movingenable = 0;
+	class controlsBackground 
+	{
+		class SpawnBackground: RscText
+		{
+			text = "";
+			x = .305217 * safezoneW + safezoneX;
+			y = .269348 * safezoneH + safezoneY;
+			w = .1185 * safezoneW;
+			h = .4644 * safezoneH;
+			colorBackground[] = {.3,.3,.3,1};
+			fixedWidth = 0;
+		};
+	};
 	class Controls
 	{
-		class MapCherno: RscPicture
+		class SpawnSelect: RscText
 		{
-			idc = 1200;
-			text = "scripts\spawn\map.paa";
-			x = 0.340983 * safezoneW + safezoneX;
-			y = 0.23125 * safezoneH + safezoneY;
-			w = 0.30876 * safezoneW;
-			h = 0.531375 * safezoneH;
+			text = "Spawn Selection";
+			x = .305218 * safezoneW + safezoneX;
+			y = .269348 * safezoneH + safezoneY;
+			w = .1185 * safezoneW;
+			h = .0405354 * safezoneH;
+			colorText[] = {1,1,1,1};
+			colorBackground[] = {.384,.702,.886,.8};
+			fixedWidth = 0;
+			shadow = 1;
+			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * .6)";
 		};
-		class BtnBalo: E_RscButton
+		class SpawnList
 		{
-			idc = 1600;
-			text = "Balota";
-			x = 0.42 * safezoneW + safezoneX;
-			y = 0.706482 * safezoneH + safezoneY;
-			w = 0.035 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 0;";
+			idc = 8888;
+			x = .305217 * safezoneW + safezoneX;
+			y = .314737 * safezoneH + safezoneY;
+			w = .1185 * safezoneW;
+			h = .33 * safezoneH;
+			autoScrollDelay = 5;
+			autoScrollRewind = 0;
+			autoScrollSpeed = -1;
+			colorSelect[] = {};
+			colorSelectBackground[] = {.5,.5,.5,1};
+			colorText[] = {.88,.88,.88,1};
+			font = "Zeppelin32";
+			maxHistoryDelay = 1;
+			onLBSelChanged = "call moveMap;";
+			rowHeight = 0;
+			class ScrollBar
+			{
+				arrowEmpty = "\ca\ui\data\arrow_up_ca.paa";
+				arrowFull = "\ca\ui\data\arrow_up_ca.paa";
+				border = "\ca\ui\data\ui_border_scroll_ca.paa";
+				color[] = {.5,.5,.5,.5};
+				colorActive[] = {.5,.5,.5,.3};
+				colorDisabled[] = {.5,.5,.5,.1};
+				shadow = 0;
+				thumb = "";
+			};
+			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * .6)";
+			soundSelect[] = {"",.1,1};
+			style = 16;
+			type = 5;
 		};
-		class BtnBere: E_RscButton
+		class SpawnButton
 		{
-			idc = 1601;
-			text = "Berezino";
-			x = 0.566146 * safezoneW + safezoneX;
-			y = 0.411111 * safezoneH + safezoneY;
-			w = 0.048 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 1;";
+			idc = 8889;
+			text = "Select Spawn";
+			x = .318 * safezoneW + safezoneX;
+			y = .6565 * safezoneH + safezoneY;
+			w = .092 * safezoneW;
+			h = .067 * safezoneH;
+			action = "call spawnPick;";
+			borderSize = 0;
+			colorBackground[] = {.4,.4,.4,1};
+			colorBackgroundActive[] = {.5,.5,.5,1};
+			colorBackgroundDisabled[] = {.2,.2,.2,1};
+			colorBorder[] = {.88,.88,.88,1};		
+			colorDisabled[] = {.2,.2,.2,1};
+			colorFocused[] = {.4,.4,.4,1};
+			colorShadow[] = {0,0,0,0};
+			colorText[] = {1,1,1,1};
+			font = "Zeppelin32";
+			offsetPressedX = .002;
+			offsetPressedY = .002;
+			offsetX = .003;
+			offsetY = .003;
+			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * .6)";
+			soundClick[] = {"\ca\ui\data\sound\onclick",.07,1};
+			soundEnter[] = {"\ca\ui\data\sound\onover",.09,1};
+			soundEscape[] = {"\ca\ui\data\sound\onescape",.09,1};
+			soundPush[] = {"\ca\ui\data\sound\new1",0,0};			
+			style = 2;
+			type = 1;
 		};
-		class BtnCher: E_RscButton
+		class SpawnMap
 		{
-			idc = 1602;
-			text = "Cherno";
-			x = 0.466146 * safezoneW + safezoneX;
-			y = 0.7 * safezoneH + safezoneY;
-			w = 0.038 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 2;";
-		};
-		class BtnDevi: E_RscButton
-		{
-			idc = 1603;
-			text = "Devils";
-			x = 0.46 * safezoneW + safezoneX;
-			y = 0.33 * safezoneH + safezoneY;
-			w = 0.035 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 3;";
-		};
-		class BtnElek: E_RscButton
-		{
-			idc = 1604;
-			text = "Elektro";
-			x = 0.526041 * safezoneW + safezoneX;
-			y = 0.71 * safezoneH + safezoneY;
-			w = 0.04 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 4;";
-		};
-		class BtnGork: E_RscButton
-		{
-			idc = 1605;
-			text = "Gorka";
-			x = 0.517708 * safezoneW + safezoneX;
-			y = 0.425926 * safezoneH + safezoneY;
-			w = 0.0323959 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 5;";
-		};
-		class BtnGris: E_RscButton
-		{
-			idc = 1606;
-			text = "Grishino";
-			x = 0.44 * safezoneW + safezoneX;
-			y = 0.38 * safezoneH + safezoneY;
-			w = 0.041 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 6;";
-		};
-		class BtnGugl: E_RscButton
-		{
-			idc = 1607;
-			text = "Guglovo";
-			x = 0.485 * safezoneW + safezoneX;
-			y = 0.53 * safezoneH + safezoneY;
-			w = 0.042 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 7;";
-		};
-		class BtnGvoz: E_RscButton
-		{
-			idc = 1608;
-			text = "Gvozdno";
-			x = 0.498959 * safezoneW + safezoneX;
-			y = 0.30463 * safezoneH + safezoneY;
-			w = 0.044 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 8;";
-		};
-		class BtnKaba: E_RscButton
-		{
-			idc = 1609;
-			text = "Kabanino";
-			x = 0.43 * safezoneW + safezoneX;
-			y = 0.46 * safezoneH + safezoneY;
-			w = 0.048 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 9;";
-		};
-		class BtnKame: E_RscButton
-		{
-			idc = 1610;
-			text = "Kamenka";
-			x = 0.35 * safezoneW + safezoneX;
-			y = 0.706482 * safezoneH + safezoneY;
-			w = 0.048 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 10;";
-		};
-		class BtnKamy: E_RscButton
-		{
-			idc = 1611;
-			text = "Kamyshovo";
-			x = 0.557812 * safezoneW + safezoneX;
-			y = 0.666667 * safezoneH + safezoneY;
-			w = 0.058 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 11;";
-		};
-		class BtnKoma: E_RscButton
-		{
-			idc = 1612;
-			text = "Komarovo";
-			x = 0.384 * safezoneW + safezoneX;
-			y = 0.735 * safezoneH + safezoneY;
-			w = 0.052 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 12;";
-		};
-		class BtnKras: E_RscButton
-		{
-			idc = 1613;
-			text = "Krasnostav";
-			x = 0.55 * safezoneW + safezoneX;
-			y = 0.29 * safezoneH + safezoneY;
-			w = 0.06 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 13;";
-		};
-		class BtnKrut: E_RscButton
-		{
-			idc = 1614;
-			text = "Krutoy";
-			x = 0.583333 * safezoneW + safezoneX;
-			y = 0.623149 * safezoneH + safezoneY;
-			w = 0.036 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 14;";
-		};
-		class BtnLopa: E_RscButton
-		{
-			idc = 1615;
-			text = "Lopatino";
-			x = 0.36 * safezoneW + safezoneX;
-			y = 0.39 * safezoneH + safezoneY;
-			w = 0.046 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 15;";
-		};
-		class BtnPetr: E_RscButton
-		{
-			idc = 1616;
-			text = "Petrovka";
-			x = 0.432812 * safezoneW + safezoneX;
-			y = 0.291667 * safezoneH + safezoneY;
-			w = 0.046 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 16;";
-		};
-		class BtnPogo: E_RscButton
-		{
-			idc = 1617;
-			text = "Pogorevka";
-			x = 0.4 * safezoneW + safezoneX;
-			y = 0.52 * safezoneH + safezoneY;
-			w = 0.054 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 17;";
-		};
-		class BtnPrig: E_RscButton
-		{
-			idc = 1618;
-			text = "Prigor";
-			x = 0.48 * safezoneW + safezoneX;
-			y = 0.67 * safezoneH + safezoneY;
-			w = 0.036 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 18;";
-		};
-		class BtnPust: E_RscButton
-		{
-			idc = 1619;
-			text = "Pusta";
-			x = 0.51 * safezoneW + safezoneX;
-			y = 0.64 * safezoneH + safezoneY;
-			w = 0.034 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 19;";
-		};			
-		class BtnSoln: E_RscButton
-		{
-			idc = 1620;
-			text = "Solnichny";
-			x = 0.580729 * safezoneW + safezoneX;
-			y = 0.540741 * safezoneH + safezoneY;
-			w = 0.05 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 20;";
-		};
-		class BtnVybo: E_RscButton
-		{
-			idc = 1621;
-			text = "Vybor";
-			x = 0.397812 * safezoneW + safezoneX;
-			y = 0.431482 * safezoneH + safezoneY;
-			w = 0.03 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 21;";
-		};
-		class BtnVysh: E_RscButton
-		{
-			idc = 1622;
-			text = "Vyshnoye";
-			x = 0.457291 * safezoneW + safezoneX;
-			y = 0.56 * safezoneH + safezoneY;
-			w = 0.05 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 22;";
-		};
-		class BtnZele: E_RscButton
-		{
-			idc = 1623;
-			text = "Zelenogorsk";
-			x = 0.379688 * safezoneW + safezoneX;
-			y = 0.597222 * safezoneH + safezoneY;
-			w = 0.064 * safezoneW;
-			h = 0.0161 * safezoneH;
-			action = "spawnSelect = 23;";
-		};
-		class BtnDono: E_RscButton
-		{
-			idc = 1624;
-			text = "Base";
-			x = 0.555 * safezoneW + safezoneX;
-			y = 0.255 * safezoneH + safezoneY;
-			w = 0.0422917 * safezoneW;
-			h = 0.0188889 * safezoneH;
-			action = "spawnSelect = 40;";
-		};
-		class BtnRand: E_RscButton
-		{
-			idc = 1625;
-			text = "Random";
-			x = 0.6 * safezoneW + safezoneX;
-			y = 0.230556 * safezoneH + safezoneY;
-			w = 0.0422917 * safezoneW;
-			h = 0.0188889 * safezoneH;
-			action = "spawnSelect = 41;";
-		};
-		class LblMap: RscText
-		{
-			idc = 1000;
-			text = "Select spawn point or click here to spawn randomly:";
-			x = 0.350521 * safezoneW + safezoneX;
-			y = 0.225001 * safezoneH + safezoneY;
-			w = 0.239687 * safezoneW;
-			h = 0.0290741 * safezoneH;
-		};
-		class LblMap2: RscText
-		{
-			idc = 1001;
-			text = "Click here to spawn at your base:";
-			x = 0.350521 * safezoneW + safezoneX;
-			y = 0.25 * safezoneH + safezoneY;
-			w = 0.239687 * safezoneW;
-			h = 0.0290741 * safezoneH;
+			idc = 8890;
+			x = .42315 * safezoneW + safezoneX;
+			y = .269348 * safezoneH + safezoneY;
+			w = .293691 * safezoneW;
+			h = .463997 * safezoneH;
+			moveOnEdges = 0;
+			shadow = 0;
+			maxSatelliteAlpha = .85;
+			alphaFadeStartScale = .35;
+			alphaFadeEndScale = .4;
+			colorOutside[] = {0,0,0,1};			
+			style = 48;
+			font = "EtelkaNarrowMediumPro";
+			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * .6)";
+			type = 101;
+			colorBackground[] = {.8,.8,.8,1};
+			colorText[] = {0,0,0,1};
+			colorRailway[] = {.5,.5,.5,.5};
+			colorSea[] = {.56,.8,.98,.5};
+			colorForest[] = {.6,.8,.2,.5};
+			colorRocks[] = {.5,.5,.5,.5};
+			colorCountlines[] = {.65,.45,.27,.5};
+			colorMainCountlines[] = {.65,.45,.27,1};
+			colorCountlinesWater[] = {0,.53,1,.5};
+			colorMainCountlinesWater[] = {0,.53,1,1};
+			colorForestBorder[] = {.4,.8,0,1};
+			colorRocksBorder[] = {.5,.5,.5,1};
+			colorPowerLines[] = {0,0,0,1};
+			colorNames[] = {0,0,0,1};
+			colorInactive[] = {1,1,1,.5};
+			colorLevels[] = {.286,.177,.094,.5};
+			fontLabel = "TahomaB";
+			sizeExLabel = .04;
+			fontGrid = "TahomaB";
+			sizeExGrid = .04;
+			fontUnits = "TahomaB";
+			sizeExUnits = .04;
+			fontNames = "TahomaB";
+			sizeExNames = .04;
+			fontInfo = "TahomaB";
+			sizeExInfo = .04;
+			fontLevel = "TahomaB";
+			sizeExLevel = .04;
+			text = "#(argb,8,8,3)color(1,1,1,1)";
+			stickX[] = {.2,{"Gamma",1,1.5}};
+			stickY[] = {.2,{"Gamma",1,1.5}};
+			ptsPerSquareSea = 6;
+			ptsPerSquareTxt = 8;
+			ptsPerSquareCLn = 8;
+			ptsPerSquareExp = 8;
+			ptsPerSquareCost = 8;
+			ptsPerSquareFor = "4.0f";
+			ptsPerSquareForEdge = "10.0f";
+			ptsPerSquareRoad = 2;
+			ptsPerSquareObj = 10;
+			showCountourInterval = 0;
+			onMouseMoving = "mouseX = (_this Select 1);mouseY = (_this Select 2)";
+			onMouseButtonDown = "mouseButtonDown = _this Select 1";
+			onMouseButtonUp = "mouseButtonUp = _this Select 1";				
+			class CustomMark {
+				icon = "\ca\ui\data\map_waypoint_ca.paa";
+				color[] = {0,0,1,1};
+				size = 18;
+				importance = 1;
+				coefMin = 1;
+				coefMax = 1;
+			};
+			class Bunker {
+				icon = "\ca\ui\data\map_bunker_ca.paa";
+				color[] = {0,0,1,1};
+				size = 14;
+				importance = 1.5 * 14 * .05;
+				coefMin = .25;
+				coefMax = 4;
+			};
+			class Bush {
+				icon = "\ca\ui\data\map_bush_ca.paa";
+				color[] = {.55,.64,.43,1};
+				size = 14;
+				importance = .2 * 14 * .05;
+				coefMin = .25;
+				coefMax = 4;
+			};
+			class BusStop {
+				icon = "\ca\ui\data\map_busstop_ca.paa";
+				color[] = {0,0,1,1};
+				size = 10;
+				importance = 1 * 10 * .05;
+				coefMin = .25;
+				coefMax = 4;
+			};
+			class Command {
+				icon = "#(argb,8,8,3)color(1,1,1,1)";
+				color[] = {0,.9,0,1};
+				size = 18;
+				importance = 1;
+				coefMin = 1;
+				coefMax = 1;
+			};
+			class Cross {
+				icon = "\ca\ui\data\map_cross_ca.paa";
+				color[] = {0,0,1,1};
+				size = 16;
+				importance = .7 * 16 * .05;
+				coefMin = .25;
+				coefMax = 4;
+			};
+			class Fortress {
+				icon = "\ca\ui\data\map_bunker_ca.paa";
+				color[] = {0,0,1,1};
+				size = 16;
+				importance = 2 * 16 * .05;
+				coefMin = .25;
+				coefMax = 4;
+			};
+			class Fuelstation {
+				icon = "#(argb,8,8,3)color(0,0,0,1)";
+				color[] = {0,0,0,1};
+				size = 16;
+				importance = 2 * 16 * .05;
+				coefMin = .75;
+				coefMax = 4;
+			};
+			class Fountain {
+				icon = "\ca\ui\data\map_fountain_ca.paa";
+				color[] = {0,.35,.7,1};
+				size = 12;
+				importance = 1 * 12 * .05;
+				coefMin = .25;
+				coefMax = 4;
+			};
+			class Hospital {
+				icon = "\ca\ui\data\map_hospital_ca.paa";
+				color[] = {.78,0,.05,1};
+				size = 16;
+				importance = 2 * 16 * .05;
+				coefMin = .5;
+				coefMax = 4;
+			};
+			class Chapel {
+				icon = "\ca\ui\data\map_chapel_ca.paa";
+				color[] = {0,0,1,1};
+				size = 16;
+				importance = 1 * 16 * .05;
+				coefMin = .9;
+				coefMax = 4;
+			};
+			class Church {
+				icon = "\ca\ui\data\map_church_ca.paa";
+				color[] = {0,0,1,1};
+				size = 16;
+				importance = 2 * 16 * .05;
+				coefMin = .9;
+				coefMax = 4;
+			};
+			class Legend {
+				x = "SafeZoneX";
+				y = "SafeZoneY";
+				w = .34;
+				h = .152;
+				font = "Zeppelin32";
+				sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * .6)";
+				colorBackground[] = {0,0,0,1};
+				color[] = {0,0,0,1};
+			};
+			class Lighthouse {
+				icon = "\ca\ui\data\map_lighthouse_ca.paa";
+				color[] = {.78,0,.05,1};
+				size = 20;
+				importance = 3 * 16 * .05;
+				coefMin = .9;
+				coefMax = 4;
+			};
+			class Quay {
+				icon = "\ca\ui\data\map_quay_ca.paa";
+				color[] = {0,0,1,1};
+				size = 16;
+				importance = 2 * 16 * .05;
+				coefMin = .5;
+				coefMax = 4;
+			};
+			class Rock {
+				icon = "\ca\ui\data\map_rock_ca.paa";
+				color[] = {0,0,1,1};
+				size = 12;
+				importance = .5 * 12 * .05;
+				coefMin = .25;
+				coefMax = 4;
+			};
+			class Ruin {
+				icon = "\ca\ui\data\map_ruin_ca.paa";
+				color[] = {.78,0,.05,1};
+				size = 16;
+				importance = 1.2 * 16 * .05;
+				coefMin = 1;
+				coefMax = 4;
+			};
+			class SmallTree {
+				icon = "\ca\ui\data\map_smalltree_ca.paa";
+				color[] = {.55,.64,.43,1};
+				size = 12;
+				importance = .6 * 12 * .05;
+				coefMin = .25;
+				coefMax = 4;
+			};
+			class Stack {
+				icon = "\ca\ui\data\map_stack_ca.paa";
+				color[] = {0,0,1,1};
+				size = 20;
+				importance = 2 * 16 * .05;
+				coefMin = .9;
+				coefMax = 4;
+			};
+			class Task {
+				icon = "\ca\ui\data\ui_taskstate_current_CA.paa";
+				iconCreated = "\ca\ui\data\ui_taskstate_new_CA.paa";
+				iconCanceled = "#(argb,8,8,3)color(0,0,0,0)";
+				iconDone = "\ca\ui\data\ui_taskstate_done_CA.paa";
+				iconFailed = "\ca\ui\data\ui_taskstate_failed_CA.paa";
+				color[] = {.863,.584,.0,1};
+				colorCreated[] = {.95,.95,.95,1};
+				colorCanceled[] = {.606,.606,.606,1};
+				colorDone[] = {.424,.651,.247,1};
+				colorFailed[] = {.706,.0745,.0196,1};
+				size = 10;
+				coefMin = 1;
+				coefMax = 4;
+				importance = 1;
+			};
+			class Tree {
+				icon = "\ca\ui\data\map_tree_ca.paa";
+				color[] = {.55,.64,.43,1};
+				size = 12;
+				importance = .9 * 16 * .05;
+				coefMin = .25;
+				coefMax = 4;
+			};
+			class Tourism {
+				icon = "\ca\ui\data\map_tourism_ca.paa";
+				color[] = {.78,0,.05,1};
+				size = 16;
+				importance = 1 * 16 * .05;
+				coefMin = .7;
+				coefMax = 4;
+			};
+			class Transmitter {
+				icon = "\ca\ui\data\map_transmitter_ca.paa";
+				color[] = {0,0,1,1};
+				size = 20;
+				importance = 2 * 16 * .05;
+				coefMin = .9;
+				coefMax = 4;
+			};
+			class ViewTower {
+				icon = "\ca\ui\data\map_viewtower_ca.paa";
+				color[] = {0,0,1,1};
+				size = 16;
+				importance = 2.5 * 16 * .05;
+				coefMin = .5;
+				coefMax = 4;
+			};
+			class Watertower {
+				icon = "\ca\ui\data\map_watertower_ca.paa";
+				color[] = {0,.35,.7,1};
+				size = 32;
+				importance = 1.2 * 16 * .05;
+				coefMin = .9;
+				coefMax = 4;
+			};
+			class Waypoint {
+				icon = "\ca\ui\data\map_waypoint_ca.paa";
+				color[] = {0,0,1,1};
+				size = 14;
+				importance = 2.5 * 16 * .05;
+				coefMin = .5;
+				coefMax = 4;
+			};
+			class WaypointCompleted {
+				icon = "\ca\ui\data\map_waypoint_completed_ca.paa";
+				color[] = {0,0,1,1};
+				size = 14;
+				importance = 2.5 * 16 * .05;
+				coefMin = .5;
+				coefMax = 4;
+			};
+			class ActiveMarker {
+				icon = "";
+				color[] = {0,0,1,1};
+				size = 14;
+				importance = 2.5 * 16 * .05;
+				coefMin = .5;
+				coefMax = 4;
+			};
 		};
 	};
 };

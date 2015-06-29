@@ -168,7 +168,9 @@ if (!isDedicated) then {
 	};
 	_playerMonitor = 	[] execVM "\z\addons\dayz_code\system\player_monitor.sqf";	
 	execVM "ZSC\compiles\playerHud.sqf";
-
+	
+	//ESS V2
+	execVM "scripts\spawn\start.sqf";
 	
 	if ( !((getPlayerUID player) in AdminList) && !((getPlayerUID player) in ModList)) then {
 		  [] execVM "admintools\antihack\antihack.sqf"; // Epoch Antihack with bypass
@@ -319,10 +321,7 @@ if(RegenBloodScript)then{
 	//Regen Blood
 	 execVM "scripts\RegenBlood\regenblood.sqf";
 };
-if(ServerWelcomeCreditsScript)then{
-	//Welcome Credits
-	 execVM "scripts\ServerWelcomeCredits.sqf";
-};
+
 if(ZombieTruckScript)then{
 //Zombie Truck
 call compile preprocessFileLineNumbers "scripts\zombietruck\init.sqf";
