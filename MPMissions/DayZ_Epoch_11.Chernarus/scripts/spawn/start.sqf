@@ -2,7 +2,7 @@
 private ["_debug","_go","_holder","_isPZombie","_platform"];
 
 _debug = getMarkerPos "respawn_west";
-if (getText(configFile >> "CfgMods" >> "DayZ" >> "dir") == "@DayZ_Epoch") then {
+if (isClass(configFile >> "CfgWeapons" >> "Chainsaw")) then {
 	if (surfaceIsWater _debug) then {
 		_debug set [2,2];
 		_platform = "MetalFloor_DZ" createVehicleLocal _debug;
@@ -54,4 +54,5 @@ if (_go) then {
 	enableEnvironment true;
 	0 fadeSound 1;
 	if (isNil "_halo") then {cutText ["","BLACK IN"];};
+	profileNamespace setVariable["coinsRecentlyAdded",false];saveProfileNamespace;
 };

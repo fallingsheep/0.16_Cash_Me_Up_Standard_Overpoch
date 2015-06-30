@@ -2,6 +2,7 @@ _halo = uiNamespace getVariable "haloChoice";
 deleteVehicle _holder;
 _finalSpawnPos = _debug;
 if (!isNil "_grid") then {_finalSpawnPos = _grid;};
+preloadCamera _finalSpawnPos;
 
 if (_halo > 0) then {
 	if (isNil "_haloType") then {	
@@ -18,16 +19,12 @@ player hideObject false;
 enableEnvironment true;
 0 fadeSound 1;
 cutText ["","BLACK IN"];
-if(ServerWelcomeCreditsScript)then{
-	//Welcome Credits
-	 execVM "scripts\ServerWelcomeCredits.sqf";
-};
 
 if (!isNil "_haloDrop") then {
-	while {(((getPos player) select 2) > _autoOpenHeight) && {isNil "bis_fnc_halo_para_dirAbs"}} do {
+	while {(getPos player) select 2 > _autoOpenHeight} do {
 		player allowDamage false;
-		if !((vehicle player) isKindOf _haloType) then {
-			titleText [("                                      ALTITUDE: " + str (round((getPos player) select 2)) + "\n\n                                      Scroll 'Mouse' select Open Chute"),"PLAIN DOWN",.1];
+		if ((isNil "_haloType") || {!((vehicle player) isKindOf _haloType)}) then {
+			titleText [format[localize "str_halo_altitude_speed",str (round((getPos player) select 2))+" m",str (abs(round(speed(vehicle player))))+" km/h"],"PLAIN DOWN",.1];
 		};
 		uiSleep .1;
 	};

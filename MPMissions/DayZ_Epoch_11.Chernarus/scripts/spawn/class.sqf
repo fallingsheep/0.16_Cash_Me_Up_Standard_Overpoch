@@ -44,7 +44,7 @@ classPick = {
 	_go = 1;
 	GET_CLASS
 	if (isNil "_class") exitWith {systemChat "Select a class!";_go=0;};
-	if (count _class > 8) then {
+	if (count _class > 9) then {
 		_level = _class select 8;
 		_hlevel = _class select 9;
 		if (count _class > 11) then {_level = _class select 19;_hlevel = _class select 20;};
@@ -82,13 +82,21 @@ classPreview = {
 	removeAllWeapons _unit;
 	removeBackpack _unit;
 	{if !(_x in (weapons _unit)) then {_unit addWeapon _x;_qty=1;};} count _weps+_startWeps;
-	if ((primaryWeapon _unit) == "") then {deleteVehicle _unit;_unit = createAgent [_model,_pPos,[],0,"CAN_COLLIDE"];};
+	if ((primaryWeapon _unit) == "") then {
+		deleteVehicle _unit;
+		_unit = createAgent [_model,_pPos,[],0,"CAN_COLLIDE"];
+		{_unit removeMagazine _x;} count magazines _unit;
+		removeAllItems _unit;
+		removeAllWeapons _unit;
+		removeBackpack _unit;
+		_unit switchMove "";
+	};
 	_unit attachTo [player,[.34,3.8,1.1]];
 	_unit setDir ((getDir player) + 180);
 	_unit enableSimulation false;
 };
 
-private ["_cam","_class","_mags","_model","_muzzle","_myModel","_pistol","_pistols","_pistolAmmo","_qty","_tool","_tools","_wep","_weps"];
+private ["_cam","_class","_coins","_mags","_model","_muzzle","_myModel","_pistol","_pistols","_pistolAmmo","_qty","_tool","_tools","_wealth","_wep","_weps"];
 #include "classConfig.sqf"
 uiNamespace setVariable ["classChoice",[]];
 
@@ -201,6 +209,8 @@ if !(_isPZombie) then {
 	removeAllItems player;
 	removeAllWeapons player;
 	removeBackpack player;
+	player addWeapon "Loot";
+	player addWeapon "Flare";
 	
 	{CHECK1 _qty = (_startMags select (_forEachIndex+1));CHECK2 for "_i" from 1 to _qty do {player addMagazine _x;_qty=1;};};} forEach _startMags;
 	{player addWeapon _x;_qty=1;} count _startWeps;
@@ -211,15 +221,17 @@ if !(_isPZombie) then {
 	_binoc = ["Binocular","Binocular_Vector"];
 	_pistols = [
 		"Colt1911","glock17_EP1","M9","M9SD","Makarov","MakarovSD","revolver_EP1","revolver_gold_EP1","UZI_EP1","UZI_SD_EP1","Sa61_EP1",
-		"DDOPP_X26","RH_Deagleg","RH_Deaglem","RH_Deagles","RH_Deaglemz","RH_Deaglemzb","RH_deagle","RH_anac","RH_anacg","RH_bull","RH_python",
+		"DDOPP_X26","DDOPP_X26_b","DDOPP_X3","DDOPP_X3_b","RH_Deagleg","RH_Deaglem","RH_Deagles","RH_Deaglemz","RH_Deaglemzb","RH_deagle","RH_anac","RH_anacg","RH_bull","RH_python",
 		"RH_browninghp","RH_p226","RH_p226s","RH_p38","RH_ppk","RH_mk22","RH_mk22sd","RH_mk22v","RH_mk22vsd","RH_usp","RH_uspm","RH_uspsd","RH_m1911",
-		"RH_m1911old","RH_m1911sd","RH_tt33","RH_mk2","RH_m9","RH_m93r","RH_m9c","RH_m9csd","RH_m9sd","RH_muzi"
+		"RH_m1911old","RH_m1911sd","RH_tt33","RH_mk2","RH_m9","RH_m93r","RH_m9c","RH_m9csd","RH_m9sd","RH_muzi","RH_g18","RH_g17","RH_g17sd","RH_g19","RH_g19t","RH_vz61","RH_tec9",
+		"vil_Tt33","vil_APS","vil_apssd","Vil_PYA","vil_B_HP","vil_Glock","vil_Glock_o","vil_USP","vil_USPSD","vil_USP45","vil_USP45SD"
 	];
 	_pistolAmmo = [
-		"15Rnd_9x19_M9","15Rnd_9x19_M9SD","17Rnd_9x19_glock17","20Rnd_B_765x17_Ball","30Rnd_9x19_UZI","30Rnd_9x19_UZI_SD","6Rnd_45ACP","7Rnd_45ACP_1911","8Rnd_9x18_Makarov","8Rnd_9x18_MakarovSD",
-		"DDOPP_1Rnd_X26","RH_7Rnd_50_AE","RH_6Rnd_44_Mag","RH_6Rnd_357_Mag","RH_15Rnd_9x19_usp","RH_15Rnd_9x19_uspsd","RH_8Rnd_9x19_P38","RH_8Rnd_9x19_Mk","RH_8Rnd_9x19_Mksd","RH_8Rnd_45cal_m1911",
-		"RH_32Rnd_9x19_Muzi","RH_13Rnd_9x19_bhp","RH_7Rnd_32cal_ppk","RH_12Rnd_45cal_usp","RH_8Rnd_762_tt33","RH_10Rnd_22LR_mk2","RH_20Rnd_9x19_M93","RH_19Rnd_9x19_g18","RH_17Rnd_9x19_g17",
-		"RH_17Rnd_9x19_g17SD","RH_20Rnd_32cal_vz61","RH_30Rnd_9x19_tec","vil_bhp_mag","vil_usp45_mag","vil_usp45sd_mag","vil_32Rnd_uzi","vil_32Rnd_UZI_SD"
+		"15Rnd_9x19_M9","15Rnd_9x19_M9SD","17Rnd_9x19_glock17","10Rnd_B_765x17_Ball","20Rnd_B_765x17_Ball","30Rnd_9x19_UZI","30Rnd_9x19_UZI_SD","6Rnd_45ACP","7Rnd_45ACP_1911","8Rnd_9x18_Makarov","8Rnd_9x18_MakarovSD",
+		"DDOPP_1Rnd_X26","DDOPP_3Rnd_X3","RH_7Rnd_50_AE","RH_6Rnd_44_Mag","RH_6Rnd_357_Mag","RH_15Rnd_9x19_usp","RH_15Rnd_9x19_uspsd","RH_8Rnd_9x19_P38","RH_8Rnd_9x19_Mk","RH_8Rnd_9x19_Mksd","RH_8Rnd_45cal_m1911",
+		"RH_32Rnd_9x19_Muzi","RH_13Rnd_9x19_bhp","RH_7Rnd_32cal_ppk","RH_12Rnd_45cal_usp","RH_8Rnd_762_tt33","RH_10Rnd_22LR_mk2","RH_20Rnd_9x19_M93","RH_19Rnd_9x19_g18","RH_33Rnd_9x19_g18","RH_17Rnd_9x19_g17",
+		"RH_17Rnd_9x19_g17SD","RH_20Rnd_32cal_vz61","RH_30Rnd_9x19_tec","vil_bhp_mag","vil_usp45_mag","vil_usp45sd_mag","vil_32Rnd_uzi","vil_32Rnd_UZI_SD","vil_17Rnd_9x19_PYA","vil_8Rnd_TT","vil_20Rnd_9x18_aps",
+		"vil_20Rnd_9x18_apsSD"
 	];
 	{
 		if (_x in _binoc) then {_hasBinoc = 1;};
@@ -242,9 +254,25 @@ if !(_isPZombie) then {
 	};
 	
 	_wep = primaryWeapon player;
+	if ((getText(configFile >> "cfgWeapons" >> _wep >> "melee")) == "true") then {call dayz_meleeMagazineCheck;};
 	if (_wep == "") then {{if (_x in _pistols) exitWith {_wep = _x;};} count (weapons player);};
 	_muzzle = getArray(configFile >> "cfgWeapons" >> _wep >> "muzzles");
 	if (count _muzzle > 1) then {player selectWeapon (_muzzle select 0);} else {player selectWeapon _wep;};
 	reload player;
+	
+	_coins = _class select 8;
+	if (count _class > 9) then {_coins = _class select 10;};
+	if (count _class > 11) then {_coins = _class select 21;};
+	if (_coins > 0) then {
+		_wealth = player getVariable[_currencyVariable,0];
+		if !(profileNamespace getVariable["coinsRecentlyAdded",false]) then {
+			player setVariable[_currencyVariable,_wealth + _coins,true];
+			PVDZE_plr_Save = [player,(magazines player),true,true];
+			publicVariableServer "PVDZE_plr_Save";
+			player setVariable ["moneychanged",1,true];
+			profileNamespace setVariable["coinsRecentlyAdded",true];saveProfileNamespace;
+			systemChat format["%1 coins added",_coins];
+		};
+	};
 };
 classFill=nil;classPick=nil;classPreview=nil;
