@@ -169,8 +169,7 @@ if (!isDedicated) then {
 	};
 	_playerMonitor = 	[] execVM "\z\addons\dayz_code\system\player_monitor.sqf";	
 	execVM "ZSC\compiles\playerHud.sqf";
-	
-	//ESS V2
+	//ESSV2
 	execVM "scripts\spawn\start.sqf";
 	
 	if ( !((getPlayerUID player) in AdminList) && !((getPlayerUID player) in ModList)) then {
@@ -334,16 +333,12 @@ if(HeroPerkScript)then{
 	//hero spawn
 	herospawn = compile preprocessFileLineNumbers "scripts\HeroPerks\heroperk.sqf";
 };
-//ESS
-espawn = compile preprocessFileLineNumbers "scripts\spawn\spawn.sqf";
-waitUntil {!isNil "PVDZE_plr_LoginRecord"};
-if (!isDedicated && (dayzPlayerLogin2 select 2)) then {
 
-[] spawn espawn;
+
 	if(HeroPerkScript)then{
 		player spawn herospawn;
 	};
-};
+
 
 if(WeaponModScript)then{
 	call compile preprocessFileLineNumbers "scripts\wmod\init.sqf";
