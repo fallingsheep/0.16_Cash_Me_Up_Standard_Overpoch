@@ -1,25 +1,22 @@
-private ["_veh","_location","_isOk","_vehtospawn","_part_in","_qty_in","_qty","_obj","_objectID","_objectUID","_started","_finished","_animState","_isMedic","_dir","_removed","_keyColor","_keyNumber","_keySelected","_isKeyOK","_config","_textPartIn","_textPartOut"];
- 
- _vehtospawn = _this select 0; 
- _dist = 10;
- _charID = dayz_characterID;
- _dir = getDir vehicle player;
- _pos = getPosATL vehicle player;
- _pos = [(_pos select 0)+_dist*sin(_dir),(_pos select 1)+_dist*cos(_dir),0];
- _worldspace = [_dir,_pos];
- 
-cutText ["Starting Spawn, stand still to complete spawn.", "PLAIN DOWN"];
+private ["_veh","_dist","_vehtospawn","_dir","_pos","_player"];
 
-_location = _pos;
- 
+_vehtospawn = _this select 0; 
+_dist = 7;
+_player = player;
+_dir = getDir vehicle _player;
+_pos = getPosATL vehicle _player;
+_pos = [(_pos select 0)+_dist*sin(_dir),(_pos select 1)+_dist*cos(_dir),0];
+_worldspace = [_dir,_pos];
+
 _veh = createVehicle [_vehtospawn, _pos, [], 0, "CAN_COLLIDE"];
 _veh setVariable ["MalSar",1,true];
-_veh setVariable ["Sarge",1,true];
 clearMagazineCargoGlobal _veh;
 clearWeaponCargoGlobal _veh;
-_veh addEventHandler ["GetIn",{
-	_nil = [nil,(_this select 2),"loc",rTITLETEXT,"Warning: Admin spawned in vehicle! It will disappear on server restart!","PLAIN DOWN",5] call RE;
-}];
- 
+	
 cutText ["Spawned a vehicle.", "PLAIN DOWN"];
 
+// Tool use logger
+if(logMinorTool) then {
+	usageLogger = format["%1 %2 -- has spawned a temporary vehicle: %3",name _player,getPlayerUID _player,_vehtospawn];
+	[] spawn {publicVariable "usageLogger";};
+};
