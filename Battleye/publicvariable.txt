@@ -1,4 +1,4 @@
 //new
-5 "" !"DBUpdClient" !"DBPV_PubUnit" !"admin_Log" "!"axeLampObjects" !"currentInvites" !"DZE_WMOD_INVENTORY" !"PVDZE_" !"norrn" !"usec" !="remExField" !="remExFP" !="drn_AskServerDynamicWeatherEventArgs" !="BIS_effects_gepv" !="PVDZ_Server_Simulation" !="PVOZ_adminSkin"
+5 "" !"DBUpdClient" !"DBPV_PubUnit" !"admin_Log" "!"axeLampObjects" !"currentInvites" !"DZE_WMOD_INVENTORY" !"PVDZE_" !"norrn" !"usec" !="remExField" !="remExFP" !="drn_AskServerDynamicWeatherEventArgs" !="BIS_effects_gepv" !="PVDZ_Server_Simulation" !="PVOZ_adminSkin" !="EAT_toClient" !="usageLogger" !="useBroadcaster" !="EAT_baseExporter" !="EAT_teleportFixServer" !="EAT_teleportFixClient" !="EAT_SetDateServer" !="EAT_SetDateClient" !="EAT_SetOvercastServer" !="EAT_SetOvercastClient" !="EAT_SetFogServer" !="EAT_SetFogClient" !="EAT_contactAdminServer" !="EAT_contactAdminClient" !="EAT_serverMessageServer" !="EAT_serverMessageClient"
 5 "remExFP" !="\"remExFP\" = \[,,\"per\",\"execVM\",\"ca\\Modules\\Functions\\init.sqf\"\]" !"\[,,\"per\",\"execVM\",\"ca\\Modules\\Functions\\init.sqf\"\]"
 5 "dayzInfectedCamps"

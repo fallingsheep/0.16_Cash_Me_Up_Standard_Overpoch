@@ -138,7 +138,8 @@ call compile preprocessFileLineNumbers "server_traders_cherno_11.sqf";				//Comp
 progressLoadingScreen 0.8;
 call compile preprocessFileLineNumbers "logistic\init.sqf";
 progressLoadingScreen 0.9;
-call compile preprocessFileLineNumbers "admintools\AdminList.sqf"; // Epoch admin Tools variables/UIDs
+call compile preprocessFileLineNumbers "admintools\config.sqf"; // Epoch admin Tools config file
+call compile preprocessFileLineNumbers "admintools\variables.sqf"; // Epoch admin Tools variables
 progressLoadingScreen 1.0;
 
 "filmic" setToneMappingParams [0.153, 0.357, 0.231, 0.1573, 0.011, 3.750, 6, 4]; setToneMapping "Filmic";
