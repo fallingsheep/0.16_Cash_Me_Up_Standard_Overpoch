@@ -1,19 +1,7 @@
 
 /************** Epoch Admin Tools Variables **************/
 
-	//Replace 111111111 with your ID. 
-	SuperAdminList = [
-	"111111111", // <player name>
-	"999999999" // <player name>
-	];
-	AdminList = [
-	"999999999", // <player name>
-	"999999999" // <player name>
-	];
-	ModList = [
-	"999999999", // <player name>
-	"999999999" // <player name>
-	];
+
 
 
 	/*

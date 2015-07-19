@@ -1,5 +1,24 @@
 //Script Control - Allows you to customize the repack by turning certain scripts on or off - true = on /false = off
 
+//ADMIN IDS!!
+	//Replace 111111111 with your ID. 
+	SuperAdminList = [
+	"111111111", // <player name>
+	"999999999" // <player name>
+	];
+	AdminList = [
+	"999999999", // <player name>
+	"999999999" // <player name>
+	];
+	ModList = [
+	"999999999", // <player name>
+	"999999999" // <player name>
+	];
+	//Admin Build
+	WG_adminBuild = [
+	"999999999", // <player name>
+	"999999999" // <player name>
+	];
 
 //Server watermark
 WaterMarkScript = true; //Watermark on/off
